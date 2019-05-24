@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   get '/news', to: 'articles#news' 
-  get '/webhose', to: 'articles#webhose' 
+  get '/good_news', to: 'articles#good_news' 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
