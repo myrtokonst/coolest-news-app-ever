@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+    # before_action :require_user!
     # require_relative './concerns/webhoseio.rb'
         def news  
         news_url = 'https://newsapi.org/v2/top-headlines?'\
@@ -25,6 +26,15 @@ class ArticlesController < ApplicationController
     end 
     
     
+  def destroy
+    article = Article.find_by(article_params)
+    if article
+      article.destroy
+      render json: {message: "article destroyed"}
+    else
+      render json: {error: "Could not destroy"}, status: 404
+    end
+  end
     
 end
 

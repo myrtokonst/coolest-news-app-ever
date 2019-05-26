@@ -49,3 +49,5 @@ gem 'ibm_watson'
 gem 'webhoseio'
 
 gem 'passwordless'
+
+gem 'active_model_serializers'
