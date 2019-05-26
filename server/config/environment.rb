@@ -7,12 +7,6 @@ require 'json'
 require 'net/https'
 # require_relative "../app/controllers/concerns/webhoseio.rb"
 
-# module Webhoseio
-# end
-
-
-
 # Initialize the Rails application.
 Rails.application.initialize!
 
-# discovery = DiscoveryV1(version: "2018-08-01")
