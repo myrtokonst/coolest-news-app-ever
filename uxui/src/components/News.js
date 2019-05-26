@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react'
+import NewsItem from './NewsItem';
 
 class News extends Component {
    state = {
@@ -7,7 +7,7 @@ class News extends Component {
    }
 
    getNews = () =>
-      fetch('https://localhost/3000')
+      fetch('http://localhost:3000/good_news')
          .then(resp => resp.json())
          .then(news => this.setState({ news }))
 
@@ -19,15 +19,8 @@ class News extends Component {
       const { news } = this.state
       return (
          <div>
-            {news.map(news => <Card
-               key={news.uuid}
-               items={{
-                  header: news.title,
-                  description: news.text,
-                  meta: news.thread.published
-               }} />)}
+            {news.map(news => <NewsItem key={news.uuid} news={news} />)}
          </div>
-
       )
    }
 }
