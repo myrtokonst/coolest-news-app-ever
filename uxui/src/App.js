@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
 import News from './components/News'
+import LogIn from './components/LogIn';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+       <header className="App-header">
       </header>
+      < LogIn /> 
       <News />
       <footer>
       </footer>
