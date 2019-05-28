@@ -23,7 +23,6 @@ class LogIn extends Component {
             last_login: time}
         })
         const username = this.state.user.username 
-        // debugger
         return fetch('http://localhost:3000/users', {
             method: 'POST',
             headers: {

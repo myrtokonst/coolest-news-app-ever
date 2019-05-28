@@ -23,7 +23,7 @@ class App extends PureComponent {
 
 
   updateNews = (news) => {
-    this.setState({news}, () => this.props.history.push('/news'))
+    this.setState({news}, () => this.state.news.length>0 ? this.props.history.push('/news') : this.props.history.push('/profile') )
   }
 
   render() {
@@ -35,8 +35,8 @@ class App extends PureComponent {
           </header>
 
           <Route exact path='/' component={props => <LogIn {...props} updateNews={this.updateNews} />} />
-          <Route path='/profile' component={Profile} /> 
-          <Route path='/news' component={props => <News {...props} news={this.state.news}/ >} /> }
+          <Route path='/profile' component={props => <Profile {...props} updateNews={this.updateNews}/>} /> 
+          <Route path='/news' component={props => <News {...props} news={this.state.news}/ >} /> 
           <Route path='/search' component={Search} />
           
           <footer>
