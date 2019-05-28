@@ -22,6 +22,19 @@ class LogIn extends Component {
              ...this.state.user,
             last_login: time}
         })
+        const username = this.state.user.username 
+        // debugger
+        return fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user:{
+                username: username,
+                last_login: time
+            }}) 
+        }
+        ).then(resp => resp.json()).then(data => console.log(data))
     }
 
  render(){ 

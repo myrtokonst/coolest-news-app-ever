@@ -6,13 +6,19 @@ class UsersController < ApplicationController
       users = User.all
       render json: users
     end
-    
-    def create
-      name = params[:username]
-      user = User.find_or_create_by(username: name)
+
+    def create  
+     user = User.find_or_create_by(username: params[:user][:username])
       #user = User.new user_params
+      # byebug 
       if user
-        render json: user
+        if user.last_login === nil
+          user.last_login = params[:user][:last_login] - 86400000 
+          user.save  
+          render json: user
+        else 
+          redirect_to :controller => 'articles', :action => 'good_news', id: user.id
+        end 
       else
         render json: {error: "Erorr creating user"}, status: 400
       end
@@ -37,11 +43,13 @@ class UsersController < ApplicationController
       end
     end
   
+    # def signin
+
+    # end 
   
+    # private
   
-    private
-  
-    def user_params
-        params.require(:user).permit(:id)
-    end
+    # def user_params
+    #     params.require(:user).permit(:id,)
+    # end
 end

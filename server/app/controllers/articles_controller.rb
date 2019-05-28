@@ -11,18 +11,23 @@ class ArticlesController < ApplicationController
        end 
 
        
-       def good_news 
-      webhoseio = Webhoseio.new('8ee5a647-e7bc-4bbd-be29-6805d0b99b6b')
+       def good_news
+        # byebug
+        user = User.find_by(id: params[:id])
+        webhoseio = Webhoseio.new('8ee5a647-e7bc-4bbd-be29-6805d0b99b6b')
         query_params = {
-            "q" => "brexit",
-        "sort" => "relevancy",
-        "ts" => "1558187015177"
+          "q" => "brexit",
+          "sort" => "relevancy",
+          "ts" => user.last_login,
+          "language" => "english"
         }
-      output = webhoseio.query('filterWebContent', query_params)
-        # output['posts'][0]['text']
-        # # byebug
-        # puts output['posts'][0]['published']
-        render json: output['posts'].slice(0,15)
+        user.last_login = DateTime.now.strftime('%Q').to_i
+        user.save
+        output = webhoseio.query('filterWebContent', query_params)
+          # output['posts'][0]['text']
+          # # byebug
+          # puts output['posts'][0]['published']
+          render json: output['posts'].slice(0,15)
     end 
     
     
