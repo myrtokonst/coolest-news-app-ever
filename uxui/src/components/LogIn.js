@@ -34,7 +34,7 @@ class LogIn extends Component {
                 last_login: time
             }}) 
         }
-        ).then(resp => resp.json()).then(data => console.log(data))
+        ).then(resp => resp.json()).then(data => this.props.updateNews(data))
     }
 
  render(){ 

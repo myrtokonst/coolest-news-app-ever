@@ -1,11 +1,16 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react'
+import '../NewsItem.css'
 
 const NewsItem = ({ news }) =>
-   <Card
-      header={news.title}
-      description={news.text.slice(0, 200)}
-      meta={news.published}
-   />
+   <div className="ui card">
+      {console.log(news)}
+      <div className="content">
+         <div className="header"> {news.title}</div>
+         <div className="meta">
+            <span>{news.published}</span>
+         </div>
+         <p> {news.text.slice(0, 300)}</p>
+      </div>
+   </div>
 
 export default NewsItem;

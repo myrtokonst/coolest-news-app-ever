@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import './App.css';
 import News from './components/News'
 import LogIn from './components/LogIn';
 
-function App() {
-  return (
-    <div className="App">
-       <header className="App-header">
-      </header>
-      < LogIn /> 
-      {/* <News /> */}
-      <footer>
-      </footer>
-    </div>
-  );
+import Nav from './components/Nav'
+
+
+class App extends PureComponent {
+  state = {
+    news: []
+  }
+
+  getNews = async (search) => {
+    console.log(`http://localhost:3000/good_news/${search}`)
+    const resp = await fetch(`http://localhost:3000/good_news/${search}`);
+    const news = await resp.json();
+    return this.setState({ news });
+  }
+
+  updateNews = (news) => {
+    this.setState({
+      news
+    })
+  }
+
+  render() {
+    const { news } = this.state
+    const { getNews, updateNews } = this
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Nav getNews={getNews} />
+        </header>
+
+        <section className="ui centered grid container">
+          <LogIn updateNews={updateNews}/>
+          <News news={news} />
+
+        </section>
+
+        <footer>
+        </footer>
+      </div>
+    );
+  }
 }
 
 export default App;

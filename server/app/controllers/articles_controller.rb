@@ -1,22 +1,24 @@
 class ArticlesController < ApplicationController
     # before_action :require_user!
     # require_relative './concerns/webhoseio.rb'
-        def news  
+        def news
         news_url = 'https://newsapi.org/v2/top-headlines?'\
        'country=us&'\
        'apiKey=4992c2232bea48d2903dffead32a2fe5'
        req = open(news_url)
        response_body = req.read
        render json: response_body
-       end 
+       end
+
 
        
        def good_news
         # byebug
         user = User.find_by(id: params[:id])
         webhoseio = Webhoseio.new('8ee5a647-e7bc-4bbd-be29-6805d0b99b6b')
+        
         query_params = {
-          "q" => "brexit",
+          "q" => user.ready_to_go_categories,
           "sort" => "relevancy",
           "ts" => user.last_login,
           "language" => "english"
@@ -41,11 +43,12 @@ class ArticlesController < ApplicationController
     end
   end
     
+
 end
 
 
-#    def watson 
+#    def watson
 #     url='
 #     https://gateway-lon.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2018-12-03&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=Brexit'
-#     # render json: 
-#    end 
+#     # render json:
+#    end
