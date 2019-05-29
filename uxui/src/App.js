@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 
 import './App.css';
 
@@ -7,7 +7,6 @@ import News from './components/News'
 import LogIn from './components/LogIn';
 
 import Nav from './components/Nav'
-import Login from './components/Login'
 import Profile from './components/Profile'
 import Search from './components/Search'
 
@@ -24,28 +23,28 @@ class App extends PureComponent {
 
 
   updateNews = (news) => {
-    this.setState({
-      news
-    })
+    this.setState({ news }, () => this.state.news.length > 0 ? this.props.history.push('/news') : this.props.history.push('/profile'))
   }
 
   render() {
     return (
-      <Router>
-        <div className="App">
-          <header className="App-header">
-            <Nav getNews={this.getNews} />
-          </header>
-          <Route exact path='/' component={Login} />
-          <Route path='/search' component={Search} />
-          <Route path='/profile' component={Profile} />
-          <footer>
-          </footer>
-        </div>
-      </Router>
+
+      <div className="App">
+        <header className="App-header">
+          <Nav getNews={this.getNews} />
+        </header>
+
+        <Route exact path='/' component={props => <LogIn {...props} updateNews={this.updateNews} />} />
+        <Route path='/profile' component={props => <Profile {...props} updateNews={this.updateNews} />} />
+        <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
+        <Route path='/search' component={Search} />
+
+        <footer>
+        </footer>
+      </div>
 
     );
   }
 }
 
-export default App;
+export default withRouter(App)

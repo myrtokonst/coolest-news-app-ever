@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, {Component} from 'react'
 
-class Login extends PureComponent {
-
+class LogIn extends Component {
    state = {
       user: {
          username: '',
@@ -28,7 +27,6 @@ class Login extends PureComponent {
          }
       })
       const username = this.state.user.username
-      // debugger
       return fetch('http://localhost:3000/users', {
          method: 'POST',
          headers: {
@@ -43,15 +41,16 @@ class Login extends PureComponent {
       }
       ).then(resp => resp.json()).then(data => this.props.updateNews(data))
    }
+
    render() {
       let { user } = this.state
-      let { username, last_login } = user
+      let { username } = user
       return (
          <form onSubmit={this.handleSubmit}>
             <div>
                <label>
                   Username
-             <input id="username" name="username" type="text"
+            <input id="username" name="username" type="text"
                      value={username}
                      onChange={event => this.handleInputChange(event)}
                   />
@@ -65,4 +64,4 @@ class Login extends PureComponent {
    }
 }
 
-export default Login
+export default LogIn

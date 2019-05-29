@@ -2,8 +2,14 @@ import React from 'react';
 import '../NewsItem.css'
 
 const NewsItem = ({ news }) =>
-   <div className="ui card">
-      {console.log(news)}
+   <div className="ui card" >
+      <div className='image'>
+         <img
+            key={news.uuid}
+            src={news.thread.main_image}
+            alt={news.title}
+         />
+      </div>
       <div className="content">
          <div className="header"> {news.title}</div>
          <div className="meta">
