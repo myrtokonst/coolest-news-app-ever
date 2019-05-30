@@ -1,5 +1,5 @@
 import React from 'react';
-import '../NewsItem.css'
+import '../styling/newsitem.css'
 
 const NewsItem = ({ news }) =>
    <div className="ui card" >

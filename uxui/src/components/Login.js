@@ -1,33 +1,20 @@
-import React, {Component} from 'react'
-import sendEmail from '../auth.js'
+import React, { PureComponent } from 'react'
 
-class LogIn extends Component {
+class Login extends PureComponent {
    state = {
-      user: {
-         username: '',
-         last_login: ''
-      }
+      username: '',
+      last_login: 0
    }
 
    handleInputChange = (event) => {
       this.setState({
-         user: {
-            ...this.state.user,
-            username: event.target.value
-         }
+         username: event.target.value
       })
    }
 
    handleSubmit = (event) => {
       event.preventDefault()
-      const time = Date.now()
-      this.setState({
-         user: {
-            ...this.state.user,
-            last_login: time
-         }
-      })
-      const username = this.state.user.username
+      const { username, last_login } = this.state
       return fetch('http://localhost:3000/users', {
          method: 'POST',
          headers: {
@@ -36,11 +23,11 @@ class LogIn extends Component {
          body: JSON.stringify({
             user: {
                username: username,
-               last_login: time
+               last_login: last_login
             }
          })
       }
-      ).then(resp => resp.json()).then(data => this.props.updateNews(data))
+      ).then(resp => resp.json()).then(user => this.props.updateUser(user))
    }
 
    handleSubmitToAuth0 = (e) => {
@@ -49,25 +36,26 @@ class LogIn extends Component {
    }
 
    render() {
-      let { user } = this.state
-      let { username } = user
       return (
          <form onSubmit={this.handleSubmit}>
             <div>
                <label>
                   Username
-            <input id="username" name="username" type="text"
-                     value={username}
+                <input
+                     type="email"
+                     value={this.state.username}
                      onChange={event => this.handleInputChange(event)}
                   />
                </label>
             </div>
             <div>
-               <button type="submit">Log in</button>
+               <button type="submit" onClick={() => {
+                  this.setState({ last_login: Date.now() })
+               }}>Checkin</button>
             </div>
          </form>
       )
    }
 }
 
-export default LogIn
+export default Login
