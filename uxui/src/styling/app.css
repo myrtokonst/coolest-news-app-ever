@@ -1,7 +1,7 @@
 
 .NewsContain {
-  margin-top: 80px;
-  display: flex;
+  background-color: #333333;
+    display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-around;

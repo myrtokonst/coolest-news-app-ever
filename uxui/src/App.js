@@ -49,10 +49,10 @@ class App extends PureComponent {
       .then(news => this.setState({ news }))
       .then(() => this.props.history.push('/news'))
 
-  updateNews = (news) => {
-    alert(news)
-    this.setState({ news }, () => this.state.news.length > 0 ? this.props.history.push('/news') : this.props.history.push('/profile'))
-  }
+  // updateNews = (news) => {
+  //   alert(news)
+  //   this.setState({ news }, () => this.state.news.length > 0 ? this.props.history.push('/news') : this.props.history.push('/profile'))
+  // }
 
   tryToFilter = (cat) => {
     this.setState({
@@ -69,31 +69,35 @@ class App extends PureComponent {
 
       <div className='App'>
         <header className="App-header">
-          <div>
-            <button onClick={() => {
-              this.props.history.goBack()
-              this.props.history.push('/news')
-            }}>
-              News
+          {this.state.user.id !== 0 &&
+            <div>
+              <button onClick={() => {
+                this.props.history.goBack()
+                this.props.history.push('/news')
+              }}>
+                News
             </button>
-            <button onClick={() => {
-              this.props.history.push('/profile')
-            }}>
-              Profile
+              <button onClick={() => {
+                this.props.history.push('/profile')
+              }}
+              >
+                Profile
             </button>
-          </div>
+            </div>
+          }
         </header>
-
-        <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
-        <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews}
-          id={this.state.user.id}
-          existingCats={this.state.user.cats}
-          tryToFilter={this.tryToFilter} />} />
-        <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
-        <footer>
-        </footer>
+        <div className='NewsContain'>
+          <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
+          <Route path='/profile' component={props => <Profile
+            {...props}
+            getNews={this.getNews}
+            id={this.state.user.id}
+            existingCats={this.state.user.cats} />}
+            tryToFilter={this.tryToFilter}
+          />
+          <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
+        </div>
       </div>
-
     );
   }
 }

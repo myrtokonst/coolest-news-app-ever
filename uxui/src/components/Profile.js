@@ -5,33 +5,35 @@ import '../styling/button.css'
 class Profile extends PureComponent {
    state = {
       cats: [],
-      selectedCats: this.props.existingCats,
+      selectedCats: [],
       newCat: '',
    }
 
-   getCats = () => {
-      return fetch('http://localhost:3000/cats')
-         .then(resp => resp.json())
-         .then(cats =>
-            this.setState({ cats: cats.filter(cat => !this.props.existingCats.map(shit => shit.id).includes(cat.id)) })
-         )
+   componentDidMount() {
+      const { existingCats } = this.props
+      this.getCats().then(cats => {
+         this.setState({ cats })
+      })
+      if (existingCats != undefined) { this.setState({ selectedCats: existingCats }) }
    }
 
-   componentDidMount() {
-      // this.setState({selectedCats: this.props.existingCats})
-      this.getCats()
-   }
+   getCats = () => fetch('http://localhost:3000/cats')
+      .then(resp => resp.json())
+
+   removeCatFromCats = cat =>
+      this.state.cats.filter(filterCat => filterCat != cat)
 
    addCategory = (cat) => {
-      if (cat.id === undefined) { cat.id = this.state.cats.length + this.state.selectedCats + 1 }
-      this.setState({
-         selectedCats: [...this.state.selectedCats, cat]
-         // cats: [...this.state.cats, cat]
+      const { selectedCats } = this.state
+      this.saveCats(cat).then((cat) => {
+         this.setState({
+            cats: this.removeCatFromCats(cat),
+            selectedCats: [...selectedCats, cat]
+         })
       })
-      this.state.newCat = ''
    }
 
-   saveCats = () =>
+   saveCats = cat =>
       fetch('http://localhost:3000/cats', {
          method: 'POST',
          headers: {
@@ -39,38 +41,53 @@ class Profile extends PureComponent {
          },
          body: JSON.stringify({
             id: this.props.id,
-            cats: this.state.selectedCats
+            cats: cat
          })
-      })
-         .then(() => { this.props.getNews() })
-         .catch(error => alert(error))
+      }).then(r => r.json())
 
    handleCat = (event) => {
       this.setState({ newCat: event.target.value })
    }
 
    render() {
+      const { cats, selectedCats } = this.state
       return (
          <React.Fragment>
-            <h1>Your categories</h1>
-            {this.state.selectedCats && this.state.selectedCats.map(cat =>
-               <Tag
-                  key={cat.id}
-                  cat={cat}
-                  addCategory={() => this.props.tryToFilter(cat)} />
-            )}
-            <h1>Pick your interests!</h1>
+            <h2>Current interests</h2>
             <div>
-               {this.state.cats.map(cat =>
+               {selectedCats != undefined && selectedCats.map(cat =>
+                  <Tag
+                     key={cat.id}
+                     cat={cat}
+                     addCategory={() => this.props.tryToFilter(cat)}
+                  />
+               )}
+            </div>
+
+            <h2>What interests you?</h2>
+            <div>
+               {cats != undefined && cats.map(cat =>
                   <Tag
                      key={cat.id}
                      cat={cat}
                      addCategory={() => this.addCategory(cat)} />)}
             </div>
-            <label>Add your own: </label>
-            <input type="text" name="cat" value={this.state.newCat} onChange={(event) => this.handleCat(event)} />
-            <button onClick={() => this.addCategory({ name: this.state.newCat })}>Add me!</button>
-            <button onClick={this.saveCats}>News</button>
+            <div className='ui form'>
+               <input
+                  className='field'
+                  placeholder='your interest'
+                  type="text"
+                  value={this.state.newCat}
+                  onChange={(event) => this.handleCat(event)} />
+               <button
+                  className='ui button'
+                  onClick={() => this.addCategory({ name: this.state.newCat })}
+               >Add</button>
+               <button
+                  className='ui button'
+                  onClick={this.props.getNews}>News
+               </button>
+            </div>
          </React.Fragment>
       )
    }

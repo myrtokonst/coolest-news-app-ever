@@ -6,11 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all()
+Category.destroy_all()
+Usecat.destroy_all()
+
 oli= User.create(username:"oliver.grant@gmail.com", last_login:"1558187015177")
 ranjit= User.create(username:"ranjit-saimbi@gmail.com", last_login:"1578187015177")
 cully= User.create(username:"cully-cullyt@gmail.com", last_login:"1557187011147")
 manon= User.create(username:"manon@gmail.com", last_login:"1558187015177")
-
 
 brexit = Category.create(name: 'brexit')
 animals = Category.create(name: 'animals')

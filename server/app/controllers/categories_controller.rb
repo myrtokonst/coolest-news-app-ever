@@ -8,9 +8,8 @@ class CategoriesController < ApplicationController
 
     def create
         user = User.find_by(id:params[:id])
-        params[:cats].map do |cat|
-            Category.find_or_create_by(name: cat[:name])
-            Usecat.find_or_create_by(category_id: cat[:id], user_id: user.id )
-        end
+        cat = Category.find_or_create_by(name: params[:cats][:name])
+        Usecat.find_or_create_by(category_id: cat.id, user_id: user.id )
+        render json: cat
     end
 end
