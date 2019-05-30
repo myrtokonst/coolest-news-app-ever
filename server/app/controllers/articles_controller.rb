@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-    # before_action :require_user!
     # require_relative './concerns/webhoseio.rb'
         def news
         news_url = 'https://newsapi.org/v2/top-headlines?'\

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  passwordless_for :users
   get '/news', to: 'articles#news'
   post '/good_news', to: 'articles#good_news'
   get '/users', to: 'users#index'

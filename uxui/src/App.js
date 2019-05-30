@@ -5,6 +5,7 @@ import './styling/app.css';
 
 import News from './components/News'
 import Login from './components/Login';
+
 import Nav from './components/Nav'
 import Profile from './components/Profile'
 import Search from './components/Search'
@@ -32,10 +33,11 @@ class App extends PureComponent {
     if (categories.length === 0) {
       this.props.history.push('/profile')
     } else {
-      let cats = categories.map(cat => cat.name)
+      // let cats = categories.map(cat => cat.name)
       this.setState({
-        user: { ...this.state.user, cats }
+        user: { ...this.state.user, cats: categories }
       })
+      
       this.getNews()
     }
   }
@@ -55,22 +57,42 @@ class App extends PureComponent {
     this.setState({ news }, () => this.state.news.length > 0 ? this.props.history.push('/news') : this.props.history.push('/profile'))
   }
 
+  tryToFilter = (cat) => {
+    this.setState({
+     user: {
+       ...this.state.user,
+       cats: cat
+     }
+    })
+    this.props.history.push('/news')
+    this.getNews()
+  }
   render() {
     return (
 
       <div className="App">
         <header className="App-header">
           <div>
-            <button onClick={() => this.props.history.push('/news')}>News</button>
-            <button onClick={() => this.props.history.push('/profile')}>Profile</button>
+            <button onClick={() => {
+              this.props.history.goBack()
+              this.props.history.push('/news')}}>
+              News
+            </button>
+            <button onClick={() => {
+            this.props.history.push('/profile')}}>
+              Profile
+            </button>
           </div>
         </header>
 
         <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
-        <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews} id={this.state.user.id} />} />
+        <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews} 
+                                                            id={this.state.user.id} 
+                                                            existingCats={this.state.user.cats} 
+                                                            tryToFilter={this.tryToFilter}/>} />
+
         <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
         <Route path='/search' component={Search} />
-
         <footer>
         </footer>
       </div>

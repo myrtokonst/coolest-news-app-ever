@@ -34,19 +34,6 @@ ActiveRecord::Schema.define(version: 2019_05_24_132102) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "passwordless_sessions", force: :cascade do |t|
-    t.string "authenticatable_type"
-    t.bigint "authenticatable_id"
-    t.datetime "timeout_at", null: false
-    t.datetime "expires_at", null: false
-    t.text "user_agent", null: false
-    t.string "remote_addr", null: false
-    t.string "token", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
-  end
-
   create_table "usecats", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "category_id"
