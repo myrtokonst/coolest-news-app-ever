@@ -34,9 +34,12 @@ class Profile extends PureComponent {
          headers: {
             'Content-Type': 'application/json'
          },
-         body: JSON.stringify(this.state.selectedCats)
+         body: JSON.stringify({
+            id: this.props.id,
+            cats: this.state.selectedCats
+         })
       })
-         .then(() => { this.props.history.push('/') })
+         .then(() => { this.props.getNews() })
          .catch(error => alert(error))
 
    handleCat = (event) => {
