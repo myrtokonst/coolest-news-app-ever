@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import '../styling/button.css'
 
 class Login extends PureComponent {
    state = {
@@ -44,9 +45,12 @@ class Login extends PureComponent {
                </label>
             </div>
             <div>
-               <button type="submit" onClick={() => {
-                  this.setState({ last_login: Date.now() })
-               }}>Checkin</button>
+               <button
+                  className='ui button'
+                  type="submit"
+                  onClick={() => {
+                     this.setState({ last_login: Date.now() })
+                  }}>Checkin</button>
             </div>
          </form>
       )
