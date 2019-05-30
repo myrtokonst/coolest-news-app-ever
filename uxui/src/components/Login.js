@@ -30,11 +30,6 @@ class Login extends PureComponent {
       ).then(resp => resp.json()).then(user => this.props.updateUser(user))
    }
 
-   handleSubmitToAuth0 = (e) => {
-      e.preventDefault()
-      sendEmail(e.target.username.value)
-   }
-
    render() {
       return (
          <form onSubmit={this.handleSubmit}>

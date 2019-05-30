@@ -65,7 +65,7 @@ class App extends PureComponent {
         </header>
 
         <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
-        <Route path='/profile' component={props => <Profile {...props} updateNews={this.updateNews} />} />
+        <Route path='/profile' component={props => <Profile {...props} existingCats={this.state.user.cats} updateNews={this.updateNews} />} />
         <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
         <Route path='/search' component={Search} />
         <footer>

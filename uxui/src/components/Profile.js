@@ -5,7 +5,7 @@ import '../styling/button.css'
 class Profile extends PureComponent {
    state = {
       cats: [],
-      selectedCats: [],
+      selectedCats: this.props.existingCats,
       newCat: '',
    }
 
@@ -22,10 +22,10 @@ class Profile extends PureComponent {
    addCategory = (cat) => {
       if (cat.id === undefined) { cat.id = this.state.cats.length + 1 }
       this.setState({
-         selectedCats: [...this.state.selectedCats, cat],
+         selectedCats: [...this.state.selectedCats, cat]
          // cats: [...this.state.cats, cat]
       })
-
+      this.state.newCat = ''
    }
 
    saveCats = () =>

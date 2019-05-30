@@ -7,7 +7,6 @@ class CategoriesController < ApplicationController
 
 
     def create
-
         user = User.find_by(id:params[:id])
         params[:_json].map do |cat|
             Category.find_or_create_by(name: cat[:name])
