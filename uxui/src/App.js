@@ -60,7 +60,10 @@ class App extends PureComponent {
 
       <div className="App">
         <header className="App-header">
-          <Nav getNews={this.getNews} />
+          <div>
+            <button onClick={() => this.props.history.push('/news')}>News</button>
+            <button onClick={() => this.props.history.push('/profile')}>Profile</button>
+          </div>
         </header>
 
         <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
