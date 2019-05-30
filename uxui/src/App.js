@@ -4,7 +4,7 @@ import { Route, withRouter } from 'react-router-dom'
 import './App.css';
 
 import News from './components/News'
-import LogIn from './components/LogIn';
+import LogIn from './components/Login';
 
 import Nav from './components/Nav'
 import Profile from './components/Profile'
@@ -20,7 +20,6 @@ class App extends PureComponent {
     const news = await resp.json();
     return this.setState({ news });
   }
-
 
   updateNews = (news) => {
     this.setState({ news }, () => this.state.news.length > 0 ? this.props.history.push('/news') : this.props.history.push('/profile'))
@@ -38,7 +37,6 @@ class App extends PureComponent {
         <Route path='/profile' component={props => <Profile {...props} updateNews={this.updateNews} />} />
         <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
         <Route path='/search' component={Search} />
-
         <footer>
         </footer>
       </div>

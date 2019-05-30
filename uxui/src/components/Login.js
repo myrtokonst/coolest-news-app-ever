@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import sendEmail from '../auth.js'
 
 class LogIn extends Component {
    state = {
@@ -40,6 +41,11 @@ class LogIn extends Component {
          })
       }
       ).then(resp => resp.json()).then(data => this.props.updateNews(data))
+   }
+
+   handleSubmitToAuth0 = (e) => {
+      e.preventDefault()
+      sendEmail(e.target.username.value)
    }
 
    render() {

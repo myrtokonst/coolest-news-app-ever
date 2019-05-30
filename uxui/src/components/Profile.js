@@ -19,7 +19,7 @@ class Profile extends PureComponent {
       this.getCats()
    }
 
-   addCategory = (cat) => {
+   addCat = (cat) => {
       this.setState({selectedCats: [...this.state.selectedCats, cat]})
        
    }
@@ -33,7 +33,7 @@ class Profile extends PureComponent {
          body: JSON.stringify(this.state.selectedCats)
       })
       .then(resp => resp.json()).then(data => this.props.updateNews(data))
-      .then(() => {this.props.history.push('/news')})
+      
    }
 
    handleCat = (event) => {
@@ -45,14 +45,14 @@ class Profile extends PureComponent {
          <div>
          <h1>Pick your interests!</h1>
             {this.state.cats.map(cat => !this.state.selectedCats.includes(cat)  
-               && <Label as='a' key ={cat.id} onClick={e => this.addCategory(cat)}>
+               && <Label as='a' key ={cat.id} onClick={e => this.addCat(cat)}>
                   <div>{cat.name}</div>
                </Label>
             )}
             <label>
                Add your own:
                <input type="text" name="cat" value={this.state.newCat} onChange={(event) => this.handleCat(event)} />
-               <button onClick={() => this.addCategory({name: this.state.newCat})}>Add me!</button>
+               <button onClick={() => this.addCat({name: this.state.newCat})}>Add me!</button>
             </label>
             <button onClick={this.saveCats}> Seeeend me to the moooon</button>
          </div>
