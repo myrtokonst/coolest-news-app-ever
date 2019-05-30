@@ -7,12 +7,10 @@ class CategoriesController < ApplicationController
 
 
     def create
-
         user = User.find_by(id:params[:id])
-        params[:_json].map do |cat|
+        params[:cats].map do |cat|
             Category.find_or_create_by(name: cat[:name])
             Usecat.find_or_create_by(category_id: cat[:id], user_id: user.id )
         end
-        redirect_to :controller => 'articles', :action => 'good_news', id: user.id
     end
 end
