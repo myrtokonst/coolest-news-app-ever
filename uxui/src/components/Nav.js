@@ -9,7 +9,7 @@ class Nav extends PureComponent {
 
    render() {
       return (
-         <img src={require('../LogoMakr_0bes0T.png')} alt='logo' /> )
+         <img src={require('../styling/logo.png')} alt='logo' />)
    }
 
 }
