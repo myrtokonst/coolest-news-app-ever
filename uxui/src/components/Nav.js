@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom'
 
 class Nav extends PureComponent {
 
@@ -7,9 +8,18 @@ class Nav extends PureComponent {
       search: '',
    }
 
+   debug =  () => {
+      debugger
+   }
    render() {
       return (
-         <img src={require('../styling/logo.png')} alt='logo' />)
+         <div>
+            <Link to='/news'><img src={require('../styling/logo.png')} alt='logo' /></Link>
+            <Link to='/news'>News | </Link>
+            <Link to='/profile' onClick={this.debug} >Profile</Link>
+         </div>
+
+      )
    }
 
 }

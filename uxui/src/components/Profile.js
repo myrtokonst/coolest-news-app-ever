@@ -5,17 +5,20 @@ import '../styling/button.css'
 class Profile extends PureComponent {
    state = {
       cats: [],
-      selectedCats: this.props.existingCats,
+      selectedCats: [],
       newCat: '',
    }
 
    getCats = () => {
       return fetch('http://localhost:3000/cats')
          .then(resp => resp.json())
+         .then(cats => cats.filter(x => !this.props.existingCats.includes(x)))
          .then(cats => this.setState({ cats }))
    }
 
    componentDidMount() {
+      debugger
+      this.setState({selectedCats: this.props.existingCats})
       this.getCats()
    }
 
@@ -34,9 +37,12 @@ class Profile extends PureComponent {
          headers: {
             'Content-Type': 'application/json'
          },
-         body: JSON.stringify(this.state.selectedCats)
+         body: JSON.stringify({
+            id: this.props.id,
+            cats: this.state.selectedCats
+         })
       })
-         .then(() => { this.props.history.push('/') })
+         .then(() => { this.props.getNews() })
          .catch(error => alert(error))
 
    handleCat = (event) => {
@@ -47,7 +53,7 @@ class Profile extends PureComponent {
       return (
          <React.Fragment>
             <h1>Your categories</h1>
-            {this.state.selectedCats.map(cat =>
+            {this.state.selectedCats && this.state.selectedCats.map(cat =>
                <Tag
                   key={cat.id}
                   cat={cat}

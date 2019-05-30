@@ -33,10 +33,11 @@ class App extends PureComponent {
     if (categories.length === 0) {
       this.props.history.push('/profile')
     } else {
-      let cats = categories.map(cat => cat.name)
+      // let cats = categories.map(cat => cat.name)
       this.setState({
-        user: { ...this.state.user, cats }
+        user: { ...this.state.user, categories }
       })
+      
       this.getNews()
     }
   }
@@ -65,7 +66,7 @@ class App extends PureComponent {
         </header>
 
         <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
-        <Route path='/profile' component={props => <Profile {...props} existingCats={this.state.user.cats} updateNews={this.updateNews} />} />
+        <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews} id={this.state.user.id} existingCats={this.state.user.cats}/>} />
         <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
         <Route path='/search' component={Search} />
         <footer>
