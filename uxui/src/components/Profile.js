@@ -5,7 +5,7 @@ import '../styling/button.css'
 class Profile extends PureComponent {
    state = {
       cats: [],
-      selectedCats: this.props.existingCats,
+      selectedCats: this.props.existingCats>1 ? this.props.existingCats : [],
       newCat: '',
    }
 
@@ -13,11 +13,10 @@ class Profile extends PureComponent {
       return fetch('http://localhost:3000/cats')
          .then(resp => resp.json())
          .then(cats => 
-            this.setState({ cats: cats.filter(cat => !this.props.existingCats.map(shit => shit.id).includes(cat.id)) })
+            this.setState({ cats: this.props.existingCats&&this.props.existingCats.length>1 ? cats.filter(cat =>!this.props.existingCats.map(shit => shit.id).includes(cat.id)) : cats })
          )}
 
    componentDidMount() {
-
       // this.setState({selectedCats: this.props.existingCats})
       this.getCats()
    }
@@ -53,12 +52,13 @@ class Profile extends PureComponent {
       return (
          <React.Fragment>
             <h1>Your categories</h1>
-            { this.state.selectedCats && this.state.selectedCats.map(cat =>
+            { this.state.selectedCats.length>0 && this.state.selectedCats.map(cat =>
                <Tag
                   key={cat.id}
                   cat={cat}
-                  addCategory={() => this.props.tryToFilter(cat)} />
-            )}
+                  addCategory={() => this.props.tryToFilter(cat) }
+                  />
+               ) }
             <h1>Pick your interests!</h1>
             <div>
                {this.state.cats.map(cat =>
