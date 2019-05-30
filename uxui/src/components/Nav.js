@@ -8,15 +8,13 @@ class Nav extends PureComponent {
       search: '',
    }
 
-   debug =  () => {
-      debugger
-   }
+   
    render() {
       return (
          <div>
-
+            <Link to='/news'><img src={require('../styling/logo.png')} alt='logo' /></Link>
             <Link to='/news'>News | </Link>
-            <Link to='/profile' onClick={this.debug} >Profile</Link>
+            <Link to='/profile' >Profile</Link>
          </div>
 
       )
