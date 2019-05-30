@@ -11,12 +11,10 @@ class ArticlesController < ApplicationController
        end
 
 
-       
+
        def good_news
-        # byebug
         user = User.find_by(id: params[:id])
         webhoseio = Webhoseio.new('8ee5a647-e7bc-4bbd-be29-6805d0b99b6b')
-        
         query_params = {
           "q" => user.ready_to_go_categories,
           "sort" => "relevancy",
@@ -30,9 +28,9 @@ class ArticlesController < ApplicationController
           # # byebug
           # puts output['posts'][0]['published']
           render json: output['posts'].slice(0,15)
-    end 
-    
-    
+    end
+
+
   def destroy
     article = Article.find_by(article_params)
     if article
@@ -42,7 +40,7 @@ class ArticlesController < ApplicationController
       render json: {error: "Could not destroy"}, status: 404
     end
   end
-    
+
 
 end
 
