@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import '../styling/button.css'
+import '../styling/login.css'
 
 class Login extends PureComponent {
    state = {
@@ -33,16 +34,14 @@ class Login extends PureComponent {
 
    render() {
       return (
-         <form onSubmit={this.handleSubmit}>
-            <div>
-               <label>
-                  Username
-                <input
-                     type="email"
-                     value={this.state.username}
-                     onChange={event => this.handleInputChange(event)}
-                  />
-               </label>
+         <form onSubmit={this.handleSubmit} className='ui form'>
+            <div className='field'>
+               <input
+                  placeholder='username'
+                  type="email"
+                  value={this.state.username}
+                  onChange={event => this.handleInputChange(event)}
+               />
             </div>
             <div>
                <button

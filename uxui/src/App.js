@@ -5,9 +5,7 @@ import './styling/app.css';
 
 import News from './components/News'
 import Login from './components/Login';
-import Nav from './components/Nav'
 import Profile from './components/Profile'
-import Search from './components/Search'
 
 class App extends PureComponent {
   state = {
@@ -58,18 +56,18 @@ class App extends PureComponent {
   render() {
     return (
 
-      <div className="App">
+      <div className='App'>
         <header className="App-header">
           <div>
             <button onClick={() => this.props.history.push('/news')}>News</button>
             <button onClick={() => this.props.history.push('/profile')}>Profile</button>
           </div>
         </header>
-
-        <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
-        <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews} id={this.state.user.id} />} />
-        <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
-        <Route path='/search' component={Search} />
+        <div className='ui grid centered'>
+          <Route exact path='/' component={props => <Login {...props} updateUser={this.updateUser} />} />
+          <Route path='/profile' component={props => <Profile {...props} getNews={this.getNews} id={this.state.user.id} />} />
+          <Route path='/news' component={props => <News {...props} news={this.state.news} />} />
+        </div>
 
         <footer>
         </footer>
