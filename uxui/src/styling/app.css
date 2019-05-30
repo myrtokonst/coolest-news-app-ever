@@ -1,7 +1,15 @@
 
+.NewsContain {
+  margin-top: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
 
 .App-header {
-  background-color: white;
+  background-color: #333333;
   min-height: 5vh;
   display: flex;
   flex-direction: column;

@@ -5,7 +5,7 @@ const News = ({ news }) => {
 
 
    return (
-      <div>
+      <div className='NewsContain'>
          {news.map(news => <NewsItem key={news.uuid} news={news} />)}
       </div>
    )
